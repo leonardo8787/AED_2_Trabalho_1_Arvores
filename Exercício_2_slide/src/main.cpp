@@ -1,4 +1,3 @@
-
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
@@ -99,15 +98,16 @@ void removeTree(Tree **t, Record r){
   	free(aux);
 }
 
-void pesquisa(Tree **t, Tree **aux, Record r){
+void pesquisa(Tree **t, Tree **aux, Record r, int *quantArvore){
 
 	if(*t == NULL){
 		printf("[ERROR]: Node not found!");
 		return;
 	}
 	//(*cont)++;
-	if(strcmp((*t)->reg.key , r.key)<0){ pesquisa(&(*t)->esq, aux, r); return;}
-	if(strcmp((*t)->reg.key , r.key)>0){ pesquisa(&(*t)->dir, aux, r); return;}
+	(*quantArvore)++;
+	if(strcmp((*t)->reg.key , r.key)>0){ pesquisa(&(*t)->esq, aux, r, quantArvore); return;}
+	if(strcmp((*t)->reg.key , r.key)<0){ pesquisa(&(*t)->dir, aux, r, quantArvore); return;}
 
 	*aux = *t;
 }
@@ -143,31 +143,30 @@ int main(){
 	Tree *aux = CreateTree();
 	Record r;
 	int *cont=0;
-	int tamBusca=10, quantVetor, tamPalavra=30, quantArvore=0;
+	int tamBusca=10, quantVetor=0, tamPalavra=30, quantArvore=0;
 	int controle;
 
 	char *palavra[] = {"ab","bc","c","d","e","f","g","h","i","j","k","l","m","n","o","p","k","r","s","t","u","v","w","x","y","z","a1","b1","c1","d1","e1","f1"};
-	char *busca[] = {"ab","k","l","a","b","d","r","q","m","e"};
+	char *busca[] = {"ab","k","l","bc","c","d","r","f","m","e"};
 
 	tamPalavra = sizeof(palavra)/sizeof(palavra[0]);
 	tamBusca = sizeof(busca)/sizeof(busca[0]);
 
 	system("clear || cls");
 
+	printf("\nBusca binária com palavras\n");
+	printf("autor: Leonardo de Oliveira Campos\n\n\n");
+
 	printf("\nElementos da árvore binária: ");
 	printf("\n{");
 	for(int i=0; i<30; i++){
-		quantArvore++;
+		
 		r.key = palavra[i];
 		r.value = 1;
 		printf("%s ", r.key);
 		insertTree(&raiz, r);
 	}
 	printf("}\n");
-
-
-	printf("\nBusca binária com palavras\n");
-	printf("autor: Leonardo de Oliveira Campos\n\n\n");
 
 	printf("Pré-ordem");
 	printf("\n{");
@@ -198,19 +197,15 @@ int main(){
 	}
 	printf("}\n\n");
 
-
-
-
 	for(int i=0; i < tamBusca; i++) {
 		r.key = busca[i];
-		pesquisa(&raiz, &aux, r);
-		//printf("teste: %s", busca[i]);
+		pesquisa(&raiz, &aux, r, &quantArvore);
+		
+		printf("encontrado: %s\n", busca[i]);
 	}
 
 	for(int i=0; i < tamBusca; i++) {
-		printf("teste");
 		for(int j=0; j < tamPalavra; j++) {
-			printf("teste");
 			quantVetor++;
 			controle = strcmp(busca[i], palavra[j]);
 			if(controle == 0) {
@@ -219,11 +214,6 @@ int main(){
 			}
 		}
 	}
-
-
-
-
-
 
 	printf("\n\n");
 	printf("acessos na arvore: %d\n", quantArvore);
