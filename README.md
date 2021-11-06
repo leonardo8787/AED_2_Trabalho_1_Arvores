@@ -4,6 +4,18 @@ Trabalho de algoritmos e estruturas de dados com linguagem C.
 Aluno: Leonardo de Oliveira Campos<br>
 Engenharia de Computação - 4° período<br>
 
+<h2> Execução do algorítmo </h2>
+
+Abra o terminal e digite os seguintes comandos: <br>
+
+~~~
+make clean 
+
+make 
+
+make run
+~~~
+
 <h2>
  Atividade 1 do slide, página 37.
 </h2>
@@ -18,4 +30,6 @@ Implementação da árvore binária em C. Colocando palavras e criando um buscad
 
 <h2> Custo computacional </h2>
 O custo computacional do primeiro algoritmo está com o custo de [(n*log n) + n + 2 ]. <br>
-O custo computacional do segundo algoritmo está com custo de ...
+O custo computacional do segundo algoritmo está com custo de [n² + 30n + 8 + (n * log n)]. <br>
+
+O método AVL é o ideal para diminuir o custo computacional de ambos os algorítmos.
